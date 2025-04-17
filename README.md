@@ -13,7 +13,6 @@ This repository contains a minimal end-to-end example of using Dapr's Pub/Sub bu
 - Maven
 - Dapr CLI
 - Docker (for Redis)
-- Redis running locally (`docker run -d -p 6379:6379 redis`)
 
 ## How to Run
 
