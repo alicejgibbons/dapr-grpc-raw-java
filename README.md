@@ -60,12 +60,8 @@ dapr run --app-id publisher   --resources-path ./components   -- java -jar publi
 
 Subscriber will log:
 
-```
+```text
 📥 Received raw message: {"message":"Hello from gRPC Publisher!"}
 ```
 
 ---
-
-## License
-
-MIT
