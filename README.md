@@ -46,13 +46,13 @@ mvn clean package
 ### 3. Run Subscriber
 
 ```bash
-dapr run --app-id subscriber   --app-port 50051   --app-protocol grpc   --resources-path ./components   -- java -jar subscriber/target/subscriber-1.0-SNAPSHOT.jar
+dapr run --app-id subscriber --app-port 50051 --app-protocol grpc --resources-path ./components -- java -jar subscriber/target/subscriber-1.0-SNAPSHOT.jar
 ```
 
 ### 4. Run Publisher
 
 ```bash
-dapr run --app-id publisher   --resources-path ./components   -- java -jar publisher/target/publisher-1.0-SNAPSHOT.jar
+dapr run --app-id publisher --resources-path ./components -- java -jar publisher/target/publisher-1.0-SNAPSHOT.jar
 ```
 
 ### Expected Output
