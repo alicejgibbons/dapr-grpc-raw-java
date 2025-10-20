@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: subscriber
-          image: alicejgibbons/subscriber:non-raw
+          image: alicejgibbons/subscriber:1.0
           imagePullPolicy: IfNotPresent
           env:
             - name: JAVA_OPTS
