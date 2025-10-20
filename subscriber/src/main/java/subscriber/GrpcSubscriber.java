@@ -17,8 +17,16 @@ public class GrpcSubscriber extends AppCallbackGrpc.AppCallbackImplBase {
 
   @Override
   public void onTopicEvent(DaprAppCallbackProtos.TopicEventRequest request, StreamObserver<DaprAppCallbackProtos.TopicEventResponse> responseObserver) {
-    String rawMessage = request.getData().toStringUtf8();
-    System.out.println("📥 Received raw message: " + rawMessage);
+    String messageToPrint = null;
+    if (request.hasExtensions()) {
+      if (request.getExtensions().getFieldsMap().containsKey("message")) {
+        messageToPrint = request.getExtensions().getFieldsMap().get("message").getStringValue();
+      }
+    }
+    if (messageToPrint == null || messageToPrint.isEmpty()) {
+      messageToPrint = request.getData().toStringUtf8();
+    }
+    System.out.println(messageToPrint);
 
     DaprAppCallbackProtos.TopicEventResponse response = DaprAppCallbackProtos.TopicEventResponse.newBuilder()
         .setStatus(DaprAppCallbackProtos.TopicEventResponse.TopicEventResponseStatus.SUCCESS)
@@ -47,8 +55,7 @@ public class GrpcSubscriber extends AppCallbackGrpc.AppCallbackImplBase {
     topicSubscriptionList.add(DaprAppCallbackProtos.TopicSubscription
         .newBuilder()
         .setPubsubName(pubsubName)
-        .setTopic(topic)
-        .putMetadata("rawPayload", "true")
+        .setTopic(topic)//.putMetadata("rawPayload", "true")
         .setBulkSubscribe(DaprAppCallbackProtos.BulkSubscribeConfig.newBuilder().setEnabled(isBulkMessage))
         .build());
   }

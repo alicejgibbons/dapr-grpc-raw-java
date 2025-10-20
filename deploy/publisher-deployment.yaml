@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: publisher
+  labels:
+    app: publisher
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: publisher
+  template:
+    metadata:
+      labels:
+        app: publisher
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "publisher"
+        dapr.io/api-token-secret: "dapr-api-token"
+    spec:
+      containers:
+        - name: publisher
+          image: alicejgibbons/publisher:debug
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: JAVA_OPTS
+              value: "-Xms128m -Xmx256m"
+            - name: DAPR_API_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: dapr-api-token
+                  key: token
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

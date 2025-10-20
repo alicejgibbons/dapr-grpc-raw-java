@@ -1,6 +1,6 @@
-# Dapr gRPC Raw Pub/Sub Example (Java)
+# Dapr gRPC Raw Pub/Sub Example with API Token Authentication (Java)
 
-This repository contains a minimal end-to-end example of using Dapr's Pub/Sub building block over **gRPC** in **Java**, with **raw payloads** (i.e., not wrapped as CloudEvents).
+This repository contains a minimal end-to-end example of using Dapr's Pub/Sub building block over **gRPC** in **Java**, with **raw payloads** (i.e., not wrapped as CloudEvents).  It also adds an additional layer of security onto the application by using API token authentication in Dapr: https://docs.dapr.io/operations/security/api-token/
 
 ## Components
 
@@ -9,7 +9,7 @@ This repository contains a minimal end-to-end example of using Dapr's Pub/Sub bu
 
 ## Requirements
 
-- Java 17+
+- Java 21+
 - Maven
 - Dapr CLI
 - Docker (for Redis)

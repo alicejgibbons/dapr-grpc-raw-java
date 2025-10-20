@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: subscriber
+  labels:
+    app: subscriber
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: subscriber
+  template:
+    metadata:
+      labels:
+        app: subscriber
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "subscriber"
+        dapr.io/app-port: "50051"
+        dapr.io/app-protocol: "grpc"
+        dapr.io/api-token-secret: "dapr-api-token"
+    spec:
+      containers:
+        - name: subscriber
+          image: alicejgibbons/subscriber:non-raw
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: JAVA_OPTS
+              value: "-Xms128m -Xmx256m"
+          ports:
+            - containerPort: 50051
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"

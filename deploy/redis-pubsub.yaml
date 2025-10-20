@@ -1,0 +1,16 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: redis-pubsub
+spec:
+  type: pubsub.redis
+  version: v1
+  metadata:
+    - name: redisHost
+      value: "redis-master.redis.svc.cluster.local:6379"
+    - name: redisPassword
+      secretKeyRef:
+        name: redis-password
+        key: redis-password
+    - name: isRawPayload
+      value: "true"
